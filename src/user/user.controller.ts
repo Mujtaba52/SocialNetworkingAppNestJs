@@ -1,5 +1,15 @@
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { UserService } from './user.service';
+
 @Controller('users')
 export class UserController {
   constructor(private userService: UserService) {}
@@ -16,6 +26,7 @@ export class UserController {
     const data = await this.userService.signup(name, email, password);
     return data;
   }
+  @UseGuards(JwtAuthGuard)
   @Get('')
   async getUsers(@Query('page') page: string, @Query('limit') limit: string) {
     const users = await this.userService.getUsers(

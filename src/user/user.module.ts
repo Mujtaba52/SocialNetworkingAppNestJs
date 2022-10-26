@@ -4,6 +4,7 @@ import { followingSchema } from 'src/following/following.model';
 import { UserController } from './user.controller';
 import { UserSchema } from './user.model';
 import { UserService } from './user.service';
+
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: 'user', schema: UserSchema }]),
