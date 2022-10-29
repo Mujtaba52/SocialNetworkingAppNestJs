@@ -1,13 +1,19 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
+import { LocalAuthGuard } from './local-auth.guard';
+import { JwtAuthGuard } from './jwt-auth.guard';
+
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
+
+  @UseGuards(LocalAuthGuard)
   @Post('sign_in')
-  signIn(@Body('email') email: string, @Body('password') password: string) {
-    return this.authService.siginIn(email, password);
+  signIn(@Request() req) {
+    return this.authService.generateToken(req.user);
   }
-  @Post('sign_out')
+  @UseGuards(JwtAuthGuard)
+  @Get('sign_out')
   signOut() {
     return 'signing out';
   }

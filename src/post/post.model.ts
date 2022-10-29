@@ -7,7 +7,6 @@ export const postSchema = new mongoose.Schema({
   },
   parent: {
     type: mongoose.Schema.Types.ObjectId,
-    required: true,
     default: null,
     ref: 'post',
   },
@@ -21,4 +20,5 @@ export const postSchema = new mongoose.Schema({
 export interface IPost extends mongoose.Document {
   description: string;
   parent: mongoose.Types.ObjectId;
+  createdBy: mongoose.Types.ObjectId;
 }

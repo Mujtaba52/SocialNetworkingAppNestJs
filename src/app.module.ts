@@ -1,4 +1,4 @@
-import { MiddlewareConsumer, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
@@ -6,8 +6,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { PostModule } from './post/post.module';
 import { AuthModule } from './auth/auth.module';
 import { FollowingModule } from './following/following.module';
-import { authmiddleware } from './middleware/auth.middleware';
-import { UserController } from './user/user.controller';
+import { LikesModule } from './likes/likes.module';
+import { CommentModule } from './comment/comment.module';
 // mongodb+srv://Mujhassan786:<password>@mycluster.fvgee7z.mongodb.net/?retryWrites=true&w=majority
 @Module({
   imports: [
@@ -18,12 +18,10 @@ import { UserController } from './user/user.controller';
     PostModule,
     AuthModule,
     FollowingModule,
+    LikesModule,
+    CommentModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(authmiddleware).forRoutes(UserController);
-  }
-}
+export class AppModule {}

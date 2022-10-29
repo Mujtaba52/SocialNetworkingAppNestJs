@@ -31,9 +31,6 @@ export class UserService {
     const user = await this.userModel.findById(id).exec();
     return user as IUser;
   }
-  signin() {
-    return 'Signing in to the app';
-  }
   async followUser(id: string) {
     const user = new this.followingModel({
       followee: id,
@@ -48,5 +45,14 @@ export class UserService {
       follower: '634a00f00bafcd3fe87a7b54',
     });
     return user;
+  }
+  async updateUser(id: string, body: JSON) {
+    const user = await this.userModel
+      .findByIdAndUpdate(id, body, { new: true })
+      .exec();
+    return user as IUser;
+  }
+  async deleteUser(id: string) {
+    return (await this.userModel.findByIdAndDelete(id)) as IUser;
   }
 }
