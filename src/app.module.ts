@@ -6,6 +6,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { PostModule } from './post/post.module';
 import { AuthModule } from './auth/auth.module';
 import { FollowingModule } from './following/following.module';
+import { LikesModule } from './likes/likes.module';
+import { CommentModule } from './comment/comment.module';
 // mongodb+srv://Mujhassan786:<password>@mycluster.fvgee7z.mongodb.net/?retryWrites=true&w=majority
 @Module({
   imports: [
@@ -16,6 +18,8 @@ import { FollowingModule } from './following/following.module';
     PostModule,
     AuthModule,
     FollowingModule,
+    LikesModule,
+    CommentModule,
   ],
   controllers: [AppController],
   providers: [AppService],

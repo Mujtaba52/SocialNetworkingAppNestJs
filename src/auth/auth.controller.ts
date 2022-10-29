@@ -10,7 +10,6 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   @Post('sign_in')
   signIn(@Request() req) {
-    console.log('Inside the controller');
     return this.authService.generateToken(req.user);
   }
   @UseGuards(JwtAuthGuard)

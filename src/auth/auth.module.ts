@@ -7,13 +7,16 @@ import { LocalStrategy } from './local.strategy';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt.strategy';
+import * as dotenv from 'dotenv';
+dotenv.config();
+
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: 'user', schema: UserSchema }]),
     PassportModule,
     JwtModule.register({
-      secret: 'JWT_SECRET',
-      signOptions: { expiresIn: '60s' },
+      secret: process.env.JWT_SECRET,
+      signOptions: { expiresIn: '3600s' },
     }),
   ],
   controllers: [AuthController],

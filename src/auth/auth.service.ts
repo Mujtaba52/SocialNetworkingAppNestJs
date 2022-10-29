@@ -14,14 +14,13 @@ export class AuthService {
   async siginIn(email: string, password: string) {
     const user = await this.userModel.findOne({ email }).exec();
     if (user && user.password === password) {
-      //   const token = await user.generateWebToken();
       return user;
     }
     return 'user not found';
   }
 
   async generateToken(user: any) {
-    const payload = { username: user.email, sub: user._id };
+    const payload = { email: user.email, id: user._id };
     return {
       access_token: this.jwtService.sign(payload),
     };
