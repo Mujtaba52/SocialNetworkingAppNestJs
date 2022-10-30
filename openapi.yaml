@@ -1,0 +1,205 @@
+openapi: 3.0.0
+paths:
+  /:
+    get:
+      operationId: getHello
+      parameters: []
+      responses:
+        "200":
+          description: ""
+  /users/signup:
+    post:
+      operationId: signup
+      parameters: []
+      responses:
+        "201":
+          description: ""
+  /users:
+    get:
+      operationId: getUsers
+      parameters:
+        - name: page
+          required: true
+          in: query
+          schema:
+            type: string
+        - name: limit
+          required: true
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+    patch:
+      operationId: updateUser
+      parameters: []
+      responses:
+        "200":
+          description: ""
+    delete:
+      operationId: deleteUser
+      parameters: []
+      responses:
+        "200":
+          description: ""
+  "/users/{id}":
+    get:
+      operationId: getUser
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+  "/users/{id}/follow":
+    post:
+      operationId: followUser
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "201":
+          description: ""
+  "/users/{id}/unfollow":
+    post:
+      operationId: unfollowUser
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "201":
+          description: ""
+  /posts:
+    get:
+      operationId: getPost
+      parameters: []
+      responses:
+        "200":
+          description: ""
+    post:
+      operationId: createPost
+      parameters: []
+      responses:
+        "201":
+          description: ""
+  "/posts/{id}":
+    patch:
+      operationId: editPost
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+    delete:
+      operationId: deletePost
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+  "/posts/{id}/share":
+    post:
+      operationId: sharePost
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "201":
+          description: ""
+  "/posts/{id}/like":
+    post:
+      operationId: likePost
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "201":
+          description: ""
+  "/posts/{id}/unlike":
+    post:
+      operationId: unlikePost
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "201":
+          description: ""
+  "/posts/{id}/comment":
+    post:
+      operationId: commentOnPost
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "201":
+          description: ""
+  /auth/sign_in:
+    post:
+      operationId: signIn
+      parameters: []
+      responses:
+        "201":
+          description: ""
+  /auth/sign_out:
+    get:
+      operationId: signOut
+      parameters: []
+      responses:
+        "200":
+          description: ""
+  "/comment/{id}/reply":
+    post:
+      operationId: replyOnComment
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "201":
+          description: ""
+info:
+  title: My API
+  description: An API to do awesome things
+  version: 1.0.0
+  contact: {}
+tags: []
+servers: []
+components:
+  securitySchemes:
+    bearer:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+  schemas: {}

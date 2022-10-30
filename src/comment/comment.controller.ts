@@ -12,7 +12,9 @@ import { actiontype } from 'src/comment/comment.model';
 
 import { PostService } from 'src/post/post.service';
 import { CommentService } from './comment.service';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('posts')
 @Controller('comment')
 export class CommentController {
   constructor(
