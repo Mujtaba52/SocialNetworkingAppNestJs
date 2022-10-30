@@ -1,18 +1,18 @@
 import mongoose from 'mongoose';
 
-enum activityType {
+export enum activityType {
   COMMENT = 'comment',
   POST = 'post',
 }
 
 export interface Ilikes extends mongoose.Document {
-  activity: mongoose.Schema.Types.ObjectId;
+  activityId: mongoose.Schema.Types.ObjectId;
   likedBy: mongoose.Schema.Types.ObjectId;
   activityType: activityType;
 }
 
 export const likesSchema = new mongoose.Schema({
-  activity: {
+  activityId: {
     type: mongoose.Schema.Types.ObjectId,
     refPath: 'activityType',
   },
