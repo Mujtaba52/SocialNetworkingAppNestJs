@@ -13,7 +13,9 @@ import { PostService } from './post.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { activityType } from 'src/likes/likes.model';
 import { actiontype } from 'src/comment/comment.model';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('posts')
 @Controller('posts')
 export class PostControllers {
   constructor(private postService: PostService) {}

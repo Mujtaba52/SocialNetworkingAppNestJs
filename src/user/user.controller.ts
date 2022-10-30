@@ -12,10 +12,14 @@ import {
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { UserService } from './user.service';
+import { ApiTags, ApiBody } from '@nestjs/swagger';
 
+@ApiTags('users')
 @Controller('users')
 export class UserController {
   constructor(private userService: UserService) {}
+
+  @ApiBody({})
   @Post('signup')
   async signup(
     @Body('name') name: string,
@@ -25,6 +29,7 @@ export class UserController {
     const data = await this.userService.signup(name, email, password);
     return data;
   }
+
   @UseGuards(JwtAuthGuard)
   @Get('')
   async getUsers(@Query('page') page: string, @Query('limit') limit: string) {
