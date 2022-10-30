@@ -16,7 +16,7 @@ export class AuthService {
     if (user && user.password === password) {
       return user;
     }
-    return 'user not found';
+    return null;
   }
 
   async generateToken(user: any) {
