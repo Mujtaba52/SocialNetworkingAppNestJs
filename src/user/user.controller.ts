@@ -13,6 +13,7 @@ import {
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { UserService } from './user.service';
 import { ApiTags, ApiBody } from '@nestjs/swagger';
+import { UserSignUpDto } from './dto/user-signup.dto';
 
 @ApiTags('users')
 @Controller('users')
@@ -21,12 +22,8 @@ export class UserController {
 
   @ApiBody({})
   @Post('signup')
-  async signup(
-    @Body('name') name: string,
-    @Body('email') email: string,
-    @Body('password') password: string,
-  ) {
-    const data = await this.userService.signup(name, email, password);
+  async signup(@Body() body: UserSignUpDto) {
+    const data = await this.userService.signup(body);
     return data;
   }
 

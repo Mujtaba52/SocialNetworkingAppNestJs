@@ -4,6 +4,7 @@ import { IPost } from './post.model';
 import mongoose, { Model, Types } from 'mongoose';
 import { Ilikes } from 'src/likes/likes.model';
 import { IComment } from 'src/comment/comment.model';
+import { createPostDto } from './dto/create-post.dto';
 
 @Injectable()
 export class PostService {
@@ -13,9 +14,9 @@ export class PostService {
     @InjectModel('comment') private readonly commentModel: Model<IComment>,
   ) {}
 
-  async createPost(description: string, id: string) {
+  async createPost(body: createPostDto, id: string) {
     const post = new this.postModel({
-      description,
+      ...body,
       createdBy: new Types.ObjectId(id),
     });
     await post.save();

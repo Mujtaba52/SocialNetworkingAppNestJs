@@ -14,6 +14,7 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { activityType } from 'src/likes/likes.model';
 import { actiontype } from 'src/comment/comment.model';
 import { ApiTags } from '@nestjs/swagger';
+import { createPostDto } from './dto/create-post.dto';
 
 @ApiTags('posts')
 @Controller('posts')
@@ -28,8 +29,8 @@ export class PostControllers {
 
   @Post('')
   @UseGuards(JwtAuthGuard)
-  async createPost(@Body('description') description: string, @Request() req) {
-    const post = await this.postService.createPost(description, req.user._id);
+  async createPost(@Body() body: createPostDto, @Request() req) {
+    const post = await this.postService.createPost(body, req.user._id);
     return post;
   }
 
