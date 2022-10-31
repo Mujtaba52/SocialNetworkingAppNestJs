@@ -8,13 +8,13 @@ import { AuthModule } from './auth/auth.module';
 import { FollowingModule } from './following/following.module';
 import { LikesModule } from './likes/likes.module';
 import { CommentModule } from './comment/comment.module';
+import * as dotenv from 'dotenv';
+dotenv.config();
 // mongodb+srv://Mujhassan786:<password>@mycluster.fvgee7z.mongodb.net/?retryWrites=true&w=majority
 @Module({
   imports: [
     UserModule,
-    MongooseModule.forRoot(
-      'mongodb+srv://Mujhassan786:connect4@mycluster.fvgee7z.mongodb.net/NestJS_SocialMediaApp?retryWrites=true&w=majority',
-    ),
+    MongooseModule.forRoot(process.env.MONGODB_URI),
     PostModule,
     AuthModule,
     FollowingModule,

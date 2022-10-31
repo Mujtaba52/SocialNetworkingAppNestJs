@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Ifollowing } from 'src/following/following.model';
+import { UserSignUpDto } from './dto/user-signup.dto';
 import { IUser } from './user.model';
 @Injectable()
 export class UserService {
@@ -10,12 +11,8 @@ export class UserService {
     @InjectModel('following')
     private readonly followingModel: Model<Ifollowing>,
   ) {}
-  async signup(name: string, email: string, password: string) {
-    const user = new this.userModel({
-      name,
-      email,
-      password,
-    });
+  async signup(body: UserSignUpDto) {
+    const user = new this.userModel(body);
     const newUser = await user.save();
     return newUser;
   }
