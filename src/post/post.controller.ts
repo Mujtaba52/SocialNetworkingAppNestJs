@@ -97,4 +97,12 @@ export class PostControllers {
     );
     return comment;
   }
+
+  @Get('userfeed')
+  @UseGuards(JwtAuthGuard)
+  async getUserFeed(@Request() req) {
+    const { page, limit } = req;
+    const feed = this.postService.getuserfeed(req.user._id, page, limit);
+    return feed;
+  }
 }

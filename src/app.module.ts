@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { FollowingModule } from './following/following.module';
 import { LikesModule } from './likes/likes.module';
 import { CommentModule } from './comment/comment.module';
+import { MessagesModule } from './messages/messages.module';
 import * as dotenv from 'dotenv';
 dotenv.config();
 // mongodb+srv://Mujhassan786:<password>@mycluster.fvgee7z.mongodb.net/?retryWrites=true&w=majority
@@ -20,6 +21,7 @@ dotenv.config();
     FollowingModule,
     LikesModule,
     CommentModule,
+    MessagesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
