@@ -30,6 +30,7 @@ export class UserController {
   @UseGuards(JwtAuthGuard)
   @Get('')
   async getUsers(@Query('page') page: string, @Query('limit') limit: string) {
+    // you can also take the query as a whole and decontruct it
     const users = await this.userService.getUsers(
       parseInt(page) || 1,
       parseInt(limit) || 5,

@@ -5,6 +5,7 @@ import mongoose, { Model, Types } from 'mongoose';
 import { Ilikes } from 'src/likes/likes.model';
 import { IComment } from 'src/comment/comment.model';
 import { createPostDto } from './dto/create-post.dto';
+import { Ifollowing } from 'src/following/following.model';
 
 @Injectable()
 export class PostService {
@@ -12,6 +13,8 @@ export class PostService {
     @InjectModel('post') private readonly postModel: Model<IPost>,
     @InjectModel('like') private readonly likeModel: Model<Ilikes>,
     @InjectModel('comment') private readonly commentModel: Model<IComment>,
+    @InjectModel('following')
+    private readonly followingModel: Model<Ifollowing>,
   ) {}
 
   async createPost(body: createPostDto, id: string) {
@@ -96,5 +99,39 @@ export class PostService {
     });
     comment.save();
     return comment;
+  }
+
+  async getuserfeed(userId: string, page: number, limit: number) {
+    const UsersBeingfollowed = await this.followingModel.find(
+      { follower: userId },
+      { followee: 1 },
+    );
+    const CommentMadeByFollowedUsers = await this.commentModel.find({
+      postedBy: {
+        $in: UsersBeingfollowed.map((value) => {
+          return value.followee;
+        }),
+      },
+    });
+    const postArr = await this.postModel
+      .find({
+        $or: [
+          { postedBy: { $in: UsersBeingfollowed } },
+          {
+            postedBy: {
+              $in: CommentMadeByFollowedUsers.map((value) => {
+                return value._id;
+              }),
+            },
+          },
+          { likes: { $in: UsersBeingfollowed } },
+          { postedBy: userId },
+        ],
+      })
+      .populate('parent')
+      .limit(Number(limit))
+      .skip((Number(page) - 1) * Number(limit))
+      .sort({ createdAt: -1 });
+    return postArr;
   }
 }
